@@ -8,9 +8,5 @@
 
 
 ```
-1. Grab your _photon_ta cookie and add it to line 16
-2. Install required libraries - pip install requirements.txt
-3. Load your tokens into tokens.txt
-4. Run main.py to grab the top trader data from the tokens
-5. Run pnlCheck.py to get the profit data on those top trader wallets
+This now uses GMGN API as Photon is aids.
 ```
