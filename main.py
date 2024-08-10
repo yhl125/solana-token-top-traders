@@ -6,7 +6,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-# Setup the session with retry strategy
 session = requests.Session()
 retry_strategy = Retry(
     total=5, 
