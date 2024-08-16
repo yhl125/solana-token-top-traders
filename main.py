@@ -1,21 +1,14 @@
 import json
 import time
-import requests
+import tls_client
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
 
-session = requests.Session()
-retry_strategy = Retry(
-    total=5, 
-    backoff_factor=1, 
-    status_forcelist=[429, 500, 502, 503, 504],
-    allowed_methods=["HEAD", "GET", "OPTIONS"]
+# Initialize tls_client session
+session = tls_client.Session(
+    client_identifier="chrome_105",
+    random_tls_extension_order=True
 )
-adapter = HTTPAdapter(max_retries=retry_strategy)
-session.mount("https://", adapter)
-session.mount("http://", adapter)
 
 allData = {}
 allAddresses = set()
@@ -27,7 +20,7 @@ def fetch_top_traders(contract_address):
     try:
         response = session.get(url)
         return response.json().get('data', [])
-    except requests.RequestException as e:
+    except Exception as e:
         print(f"Error fetching data for {contract_address}: {e}")
         return []
 
@@ -39,7 +32,6 @@ try:
     threads = int(input("[❓] Threads: "))
 except Exception:
     threads = 15
-
 print(f"[🤖] Set threads to {threads}")
 
 startTime = time.time()

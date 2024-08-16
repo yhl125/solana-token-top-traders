@@ -1,1 +1,2 @@
-requests
+tls_client
+typing-extensions
